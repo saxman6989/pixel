@@ -1,7 +1,7 @@
 <template lang='pug'>
   .container
-    canvas#sketch
-    canvas#bg(v-on:click="draw")
+    canvas#sketch(ref="sketch")
+    canvas#bg(v-on:click="draw" ref="bg")
     
 </template>
 
@@ -18,7 +18,7 @@ export default {
   },
   mounted () {
     ['bg', 'sketch'].forEach(e => {
-      let canvas = document.getElementById(e)
+      let canvas = this.$refs[e]
 
       canvas.height = this.size.x
       canvas.width = this.size.y
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     draw: function(event) {
-      const canvas = document.getElementById('sketch')
+      const canvas = this.$refs.sketch
       let ctx = canvas.getContext("2d")
       const point = (e) => {
         let boxSize = 20
