@@ -1,16 +1,16 @@
 <template lang='pug'>
   .app
-    sketch
+    tools
   </div>
 </template>
 
 <script>
-import Sketch from './components/Sketch'
+import Tools from './components/Tools'
 
 export default {
   name: 'app',
   components: {
-    Sketch
+    Tools
   }
 }
 </script>

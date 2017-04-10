@@ -8,6 +8,7 @@
 <script>
 export default {
   name: 'sketch',
+  props: ['color'],
   data () {
     return {
       size: {
@@ -23,7 +24,7 @@ export default {
       canvas.height = this.size.x
       canvas.width = this.size.y
     })
-    let ctx = bg.getContext("2d")
+    let ctx = this.$refs.bg.getContext("2d")
     ctx.translate(0.5, 0.5)
 
     const drawBoard = () => {
@@ -43,22 +44,46 @@ export default {
 
     drawBoard()
   },
+  sockets:{
+    init: function(pos) {
+      pos.forEach(data => this.draw(null, data, data.color))
+    },
+    clearToClient: function() {
+      this.clear()
+    }
+  },
   methods: {
-    draw: function(event) {
+    draw: function(e, data, color) {
       const canvas = this.$refs.sketch
       let ctx = canvas.getContext("2d")
-      const point = (e) => {
+
+      const point = (e, data, color) => {
         let boxSize = 20
-        ctx.fillStyle = "yellow"
-        let dx = Math.floor(e.offsetX / boxSize) * boxSize
-        let dy = Math.floor(e.offsetY / boxSize) * boxSize
+        ctx.fillStyle = color
 
-        console.log(`${dx}, ${dy}`)
+        if(data) {
+          ctx.clearRect(data.dx, data.dy, boxSize, boxSize)
+          ctx.fillRect(data.dx, data.dy, boxSize, boxSize)
+        } else {
+          let dx = Math.floor(e.offsetX / boxSize) * boxSize
+          let dy = Math.floor(e.offsetY / boxSize) * boxSize
 
-        //ctx.clearRect(dx, dy, boxSize, boxSize)
-        ctx.fillRect(dx, dy, boxSize, boxSize)
+          //ctx.clearRect(dx, dy, boxSize, boxSize)
+          ctx.fillRect(dx, dy, boxSize, boxSize)
+          this.$socket.emit('dataToServer', {
+            dx: dx,
+            dy: dy,
+            color: color
+          })
+        }
       }
-      point(event)
+
+      data ? point(null, data, data.color) : point(e, null, this.color)
+    },
+    clear: function() {
+      const canvas = this.$refs.sketch
+      let ctx = canvas.getContext("2d")
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
   }
 }
