@@ -57,6 +57,7 @@ export default {
         dy: data.dy
       }
 
+      console.log(data)
       this.draw(null, pos, data.color)
     }
   },
@@ -87,7 +88,7 @@ export default {
         }
       }
 
-      data ? point(null, data, data.color) : point(e, null, this.color)
+      data ? point(null, data, data.color) : point(e, null, color)
     },
     clear: function() {
       const canvas = this.$refs.sketch
