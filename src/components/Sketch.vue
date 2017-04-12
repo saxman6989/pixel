@@ -45,10 +45,10 @@ export default {
     drawBoard()
   },
   sockets:{
-    init: function(pos) {
-      pos.forEach(data => this.draw(null, data, data.color))
+    'res.join': function(data) {
+      data.pos.forEach(posData => this.draw(null, posData, posData.color))
     },
-    clearToClient: function() {
+    'res.clear': function() {
       this.clear()
     }
   },
@@ -70,10 +70,11 @@ export default {
 
           //ctx.clearRect(dx, dy, boxSize, boxSize)
           ctx.fillRect(dx, dy, boxSize, boxSize)
-          this.$socket.emit('dataToServer', {
+          this.$socket.emit('req.data', {
             dx: dx,
             dy: dy,
-            color: color
+            color: color,
+            room: this.room
           })
         }
       }

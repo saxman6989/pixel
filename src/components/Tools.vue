@@ -5,12 +5,14 @@
       div.dropdown
         button.btn.btn-primary.dropdown-toggle(href="#" tabindex="0") Settings
         ul.menu
-          li.divider(data-content="Color")
           li.menu-item
             input.jscolor.form-input(v-model="color" v-validate="{ rules: { regex: /^#[0-9A-F]{6}$/i, required: true} }")
           li.divider(data-content="Clear Canvas")
           li.menu-item
             button.btn(v-on:click="confirmClear") Clear
+          li.divider(data-content="Leave")
+          li.menu-item
+            button.btn(v-on:click="confirmLeave") Leave
 </template>
 
 <script>
@@ -21,6 +23,7 @@ export default {
   components: {
     Sketch
   },
+  props: ['room'],
   data () {
     return {
       color: '#000000'
@@ -29,7 +32,12 @@ export default {
   methods: {
     confirmClear: function() {
       if(confirm("Clear everything?") === true) {
-        this.$socket.emit('clearToServer', true)
+        this.$socket.emit('req.clear')
+      }
+    },
+    confirmLeave: function() {
+      if(confirm("Leave?") === true) {
+        this.$socket.emit('req.leave', this._props.room)
       }
     }
   }

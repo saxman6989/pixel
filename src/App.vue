@@ -1,16 +1,16 @@
 <template lang='pug'>
-  .app
-    tools
+  .app.container
+    lists
   </div>
 </template>
 
 <script>
-import Tools from './components/Tools'
+import Lists from './components/Lists'
 
 export default {
   name: 'app',
   components: {
-    Tools
+    Lists
   }
 }
 </script>
