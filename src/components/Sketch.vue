@@ -50,6 +50,14 @@ export default {
     },
     'res.clear': function() {
       this.clear()
+    },
+    'res.data': function(data) {
+      let pos = {
+        dx: data.dx,
+        dy: data.dy
+      }
+
+      this.draw(null, pos, data.color)
     }
   },
   methods: {
