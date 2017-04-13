@@ -4,7 +4,7 @@ import Vue from 'vue'
 import VeeValidate from 'vee-validate'
 import VueSocketio from 'vue-socket.io'
 import App from './App'
-import Spectre from '../node_modules/spectre.css/dist/spectre.css'
+import Spectre from '../node_modules/spectre.css/docs/dist/spectre.css'
 
 const socketUrl = 'http://socket.bool.tk'
 

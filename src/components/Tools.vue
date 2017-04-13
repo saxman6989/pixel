@@ -1,6 +1,6 @@
 <template lang='pug'>
   div
-    sketch(:color="color")
+    sketch(:inherited="{color: color, room: room}")
     div#picker
       div.dropdown
         button.btn.btn-primary.dropdown-toggle(href="#" tabindex="0") Settings

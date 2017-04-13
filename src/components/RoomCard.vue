@@ -6,7 +6,10 @@
           img.img-responsive(:src="room.coverURL")
         div.card-header
           h4.card-title {{ room.name }}
-        div.card-body {{ room.client }}
+        div.card-body
+          p(v-if="room.clients > 1") There are {{ room.clients }} people.
+          p(v-else-if="room.clients === 1") There is only one person...
+          p(v-else) 0
         div.card-footer
           button.btn.btn-primary(v-on:click="join(room.name)") Join
 </template>

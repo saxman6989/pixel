@@ -8,7 +8,7 @@
 <script>
 export default {
   name: 'sketch',
-  props: ['color'],
+  props: ['inherited'],
   data () {
     return {
       size: {
@@ -52,13 +52,7 @@ export default {
       this.clear()
     },
     'res.data': function(data) {
-      let pos = {
-        dx: data.dx,
-        dy: data.dy
-      }
-
-      console.log(data)
-      this.draw(null, pos, data.color)
+      this.draw(null, data)
     }
   },
   methods: {
@@ -68,7 +62,7 @@ export default {
 
       const point = (e, data, color) => {
         let boxSize = 20
-        ctx.fillStyle = color
+        ctx.fillStyle = color || data.color
 
         if(data) {
           ctx.clearRect(data.dx, data.dy, boxSize, boxSize)
@@ -83,12 +77,12 @@ export default {
             dx: dx,
             dy: dy,
             color: color,
-            room: this.room
+            room: this.inherited.room
           })
         }
       }
 
-      data ? point(null, data, data.color) : point(e, null, color)
+      data ? point(null, data, data.color) : point(e, null, this.inherited.color)
     },
     clear: function() {
       const canvas = this.$refs.sketch
