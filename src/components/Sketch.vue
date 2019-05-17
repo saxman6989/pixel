@@ -12,8 +12,8 @@ export default {
   data () {
     return {
       size: {
-        x:10000,
-        y:5000
+        x:1000,
+        y:1000
       }
     }
   },
@@ -47,6 +47,10 @@ export default {
   sockets:{
     'res.join': function(data) {
       data.pos.forEach(posData => this.draw(null, posData, posData.color))
+      window.onbeforeunload = e => {
+        e.returnValue = 'asfd'
+        this.$socket.emit('req.leave', this.inherited.room)
+      }
     },
     'res.clear': function() {
       this.clear()
@@ -88,7 +92,12 @@ export default {
       const canvas = this.$refs.sketch
       let ctx = canvas.getContext("2d")
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-    }
+    },
+    confirmLeave: function() {
+      if(confirm("Leave?") === true) {
+        this.$socket.emit('req.leave', this._props.room)
+      }
+    },
   }
 }
 </script>

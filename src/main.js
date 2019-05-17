@@ -6,7 +6,7 @@ import VueSocketio from 'vue-socket.io'
 import App from './App'
 import Spectre from '../node_modules/spectre.css/docs/dist/spectre.css'
 
-const socketUrl = 'http://socket.bool.tk'
+const socketUrl = 'localhost:5555'
 
 /* eslint-disable no-new */
 Vue.use(VueSocketio, socketUrl);

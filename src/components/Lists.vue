@@ -28,7 +28,7 @@ export default {
     }
   },
   sockets:{
-    'res.setup': function(rooms) {
+    'res.update': function(rooms) {
       this.rooms = rooms
     },
     'res.join': function(data) {
@@ -41,7 +41,7 @@ export default {
     },
     'res.error': function(err) {
       alert(err)
-    }
+    },
   }
 }
 </script>
